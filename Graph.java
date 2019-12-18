@@ -1,17 +1,51 @@
 package graphAs;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import Jama.Matrix;
+import Jama.EigenvalueDecomposition;
+
 
 public class Graph {
 	Map<Node, LinkedList<Edge>> g = new HashMap<>();
+	
 	public Graph() {
 		
+	}
+	public int getDegree(Node which) {
+		return g.get(which).size();
+	}
+	public double closenessCentrality(Node which) {
+		int total=0;
+		int nodeCount=0;
+		for (Map.Entry<Node,LinkedList<Edge>> entry : g.entrySet()) {
+			total+=getBFDistance(which, entry.getKey());
+			if(which!=entry.getKey()) {
+				nodeCount++;
+			}
+			
+		}
+		double result=(double)1/((double)total/(double)nodeCount);
+		return result;
+	}
+	public void makeMatrix() {
+		int[][] myArray=new int[g.entrySet().size()-1][g.entrySet().size()-1];
+		
+	}
+	public double eccentricityCentrality(Node which) {
+		int DF=0;
+		int max=-1;
+		for (Map.Entry<Node,LinkedList<Edge>> entry : g.entrySet()) {
+			DF=getBFDistance(which, entry.getKey());
+			if(max<DF) {
+				max=DF;
+			}
+			
+		}
+		double result=(double)1/(double)max;
+		return result;
 	}
 	//src->dest and dest->src
 	public void addEdge( Node src, Node dest, String label) {
@@ -38,23 +72,16 @@ public class Graph {
 
 	    }
 	
-	public void printShortestDistance( Node source, Node dest) {
-
-//        int[] dist = new int[size];
-//        boolean[] visited = new boolean[size];
-//        int[] previous = new int[size];
-        
+	public int getBFDistance( Node source, Node dest) {
+		if(source==dest)
+			return 0;
+        //previ sil
         Queue<Node> queue= new LinkedList<>();
-//        Arrays.fill(previous, -1);
-//        Arrays.fill(dist, -1);
-//        Arrays.fill(visited, false);
         Map<Node, Boolean> tempVisited = new HashMap<>();
         Map<Node, Integer> tempDist = new HashMap<>();
         Map<Node, Integer> tempPrevious = new HashMap<>();
         tempVisited.put(source, true);
         tempDist.put(source, 0);
-        //visited[startV] = true;
-        //dist[startV]= 0;
 
         boolean routeFound = false;
         queue.add(source);
@@ -62,16 +89,12 @@ public class Graph {
             Node node = queue.poll();
 
             for(Edge e: g.get(node)){
-                //if(!visited[e.endNode]){
             	if(tempVisited.get(e.endNode)==null)
             	{
             		tempDist.put(e.endNode, tempDist.get(node)+1);
             		
-                    //dist[e.endVertex] = dist[node]+1;
-                    //previous[e.endVertex] = node;
                     tempPrevious.put(e.endNode, tempDist.get(node));
                     tempVisited.put(e.endNode, true);
-                    //visited[e.endVertex] = true;
                     queue.add(e.endNode);
 
                     if(e.endNode == dest){
@@ -84,17 +107,9 @@ public class Graph {
         }
 
         if(routeFound) {
-           // System.out.print("Path is: ");
-            //int i = dest;
-            //previous[i] will be 0 for source node
-//            while (previous[i] != -1) {
-//                System.out.print(i + " ");
-//                i = previous[i];
-//            }
-//            System.out.print(i + " ");
-
-            System.out.println();
-            System.out.println("Path length is:" + tempDist.get(dest));
-        }
+            return tempDist.get(dest);
+        }else {
+			return -1;
+		}
     }
 }
