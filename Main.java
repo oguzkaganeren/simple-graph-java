@@ -13,11 +13,6 @@ public class Main {
 		Node C=new Node("C");
 		Node D=new Node("D");
 		Node E=new Node("E");
-//		ourGraph.addNode(A);
-//		ourGraph.addNode(B);
-//		ourGraph.addNode(C);
-//		ourGraph.addNode(D);
-//		ourGraph.addNode(E);
 		ourGraph.addEdge(A,B, "connect");
 		ourGraph.addEdge(B,C,"connect");
 		ourGraph.addEdge(B,E,"connect");
@@ -27,6 +22,7 @@ public class Main {
 		System.out.println(ourGraph.closenessCentrality(C));
 		System.out.println(ourGraph.eccentricityCentrality(B));
 		System.out.println("B dg:"+ourGraph.getDegree(E));
+		
 		
 	}
 

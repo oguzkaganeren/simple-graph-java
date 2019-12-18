@@ -31,7 +31,27 @@ public class Graph {
 		return result;
 	}
 	public void makeMatrix() {
-		int[][] myArray=new int[g.entrySet().size()-1][g.entrySet().size()-1];
+//		int[][] myArray=new int[g.entrySet().size()][g.entrySet().size()];
+//		int i=0;
+//		int j=0;
+//		for (Map.Entry<Node,LinkedList<Edge>> entry : g.entrySet()) {
+//			for (Edge eds : entry.getValue()) {
+//				System.out.print(eds.endNode.getName());
+//				if(eds.endNode==entry.getKey()) {
+//					myArray[i][j]=1;
+//					
+//				}else {
+//					myArray[i][j]=0;
+//				}
+//				//System.out.print(myArray[i][j]);
+//				j++;
+//			}
+//			System.out.println();
+//			j=0;
+//			i++;
+//		}
+		//eigenvector???????
+		
 		
 	}
 	public double eccentricityCentrality(Node which) {
