@@ -19,10 +19,12 @@ public class Main {
 		ourGraph.addEdge(B,D,"connect");
 		ourGraph.addEdge(E,C,"connect");
 		ourGraph.addEdge(E,D,"connect");
-		System.out.println(ourGraph.closenessCentrality(C));
-		System.out.println(ourGraph.eccentricityCentrality(B));
+		System.out.println(ourGraph.closenessCentrality(A));
+		System.out.println(ourGraph.eccentricityCentrality(A));
 		System.out.println("B dg:"+ourGraph.getDegree(E));
-		
+		ourGraph.printList();
+		ourGraph.calculateEigen();
+		//ourGraph.makeMatrix();
 		
 	}
 
